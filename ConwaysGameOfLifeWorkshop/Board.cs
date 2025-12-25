@@ -35,6 +35,20 @@ namespace ConwaysGameOfLifeWorkshop
             }
         }
 
+        public Board(bool[,] boardConfiguration)
+        {
+            Fields = new Cell[boardConfiguration.GetLength(0), boardConfiguration.GetLength(1)];
+            Generation = 1;
+
+            for (int y = 0; y < Fields.GetLength(1); y++)
+            {
+                for (int x = 0; x < Fields.GetLength(0); x++)
+                {
+                    Fields[x, y] = new Cell(boardConfiguration[x, y]);
+                }
+            }
+        }
+
         public void Run()
         {
             Console.CursorVisible = false;
