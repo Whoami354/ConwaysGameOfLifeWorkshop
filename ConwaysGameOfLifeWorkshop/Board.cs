@@ -19,12 +19,18 @@ namespace ConwaysGameOfLifeWorkshop
         {
             Fields = new Cell[width, height];
             Generation = 1;
+            Random rnd = new Random();
 
             for(int y = 0; y < Fields.GetLength(1); y++)
             {
                 for(int x = 0; x < Fields.GetLength(0); x++)
                 {
-                    Fields[x, y] = new Cell(false);
+                    int num = rnd.Next(0, 2);
+
+                    if(num == 1)
+                        Fields[x, y] = new Cell(true);
+                    else if(num == 0)
+                        Fields[x, y] = new Cell(false);
                 }
             }
         }
@@ -35,10 +41,67 @@ namespace ConwaysGameOfLifeWorkshop
 
             while(true)
             {
-                //Draw();
+                Draw();
                 Update();
                 Generation++;
                 Thread.Sleep(100);
+            }
+        }
+
+        private void Draw()
+        {
+            if (Generation == 1)
+            {
+                for (int y = 0; y < Fields.GetLength(1); y++)
+                {
+                    for (int x = 0; x < Fields.GetLength(0); x++)
+                    {
+                        if (Fields[x, y].IsAlive)
+                        {
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.Write(CHARACTER_ALIVE);
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write(CHARACTER_DEAD);
+                            Console.ResetColor();
+                        }
+
+                        Console.Write(" ");
+                    }
+
+                    Console.WriteLine();
+                }
+            }
+            else
+            {
+                for (int y = 0; y < Fields.GetLength(1); y++)
+                {
+                    for (int x = 0; x < Fields.GetLength(0); x++)
+                    {
+                        if (Fields[x, y].LastGenerationStatus != Fields[x, y].IsAlive)
+                        {
+                            Console.SetCursorPosition((x * 2) + 1, y);
+                            Console.Write("\b \b");
+
+                            if (Fields[x, y].IsAlive)
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Write(CHARACTER_ALIVE);
+                                Console.ResetColor();
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                                Console.Write(CHARACTER_DEAD);
+                                Console.ResetColor();
+                            }
+
+                        }
+                    }
+                }
             }
         }
 
