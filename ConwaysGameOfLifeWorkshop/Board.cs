@@ -36,10 +36,55 @@ namespace ConwaysGameOfLifeWorkshop
             while(true)
             {
                 //Draw();
-                //Update();
+                Update();
                 Generation++;
                 Thread.Sleep(100);
             }
+        }
+
+        public void Update()
+        {
+            //Durchlaufe jede Zelle im Feld
+            for(int y = 0; y < Fields.GetLength(1); y++)
+            {
+                for(int x = 0; x < Fields.GetLength(0); x++)
+                {
+                    //Zähle wie viele lebende Nachbarn die aktuell durchlaufende Zelle hat 
+                    CountAliveNeighbourCells(x, y);
+
+                    //Lege fest, welchen Status (tot, lebendig) die aktuell durchlaufene Zelle im nächsten Spielschritt hat
+                    Fields[x, y].CheckNextCellStatus();
+                }
+            }
+            
+            //Durchlaufe nochmal alle Zellen im Feld
+                //Update jede Zelle
+            foreach(Cell cell in Fields)
+                cell.Update();
+        }
+
+        private void CountAliveNeighbourCells(int xPosition, int yPosition)
+        {
+            int count = 0;
+
+            //Durchlaufe nur die Nachbarn der ausgewählten Zelle
+            for(int y = yPosition - 1; y < yPosition + 2; y++)
+            {
+                for(int x = xPosition - 1; x < xPosition + 2; x++)
+                {
+                    if(x == xPosition && y == yPosition)
+                        continue;
+
+                    // Prüfe ob die aktuell durchlaufene Zelle innerhalb des Arrays liegt
+                    if((x >= 0 && x < Fields.GetLength(0)) && (y >= 0 && y < Fields.GetLength(1)))
+                    {
+                        if(Fields[x, y].IsAlive)
+                            count++;
+                    }
+                }
+            }
+
+            Fields[xPosition, yPosition].AmountOfNeighbours = count;
         }
     }
 }
