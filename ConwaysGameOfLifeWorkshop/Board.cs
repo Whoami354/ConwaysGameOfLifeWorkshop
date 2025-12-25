@@ -59,8 +59,8 @@ namespace ConwaysGameOfLifeWorkshop
             
             //Durchlaufe nochmal alle Zellen im Feld
                 //Update jede Zelle
-            foreach(Cell cell in Fields)
-                cell.Update();
+            //foreach(Cell cell in Fields)
+                //cell.Update();
         }
 
         private void CountAliveNeighbourCells(int xPosition, int yPosition)
