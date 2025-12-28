@@ -1,5 +1,4 @@
 # Conways Game Of Life Workshop
-# Conway’s Game of Life – C#
 
 ## Rules
 
