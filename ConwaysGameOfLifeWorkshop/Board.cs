@@ -15,26 +15,6 @@ namespace ConwaysGameOfLifeWorkshop
         public Cell[,] Fields { get; private set; }
         public int Generation { get; private set; }
 
-        public Board(int width, int height)
-        {
-            Fields = new Cell[width, height];
-            Generation = 1;
-            Random rnd = new Random();
-
-            for(int y = 0; y < Fields.GetLength(1); y++)
-            {
-                for(int x = 0; x < Fields.GetLength(0); x++)
-                {
-                    int num = rnd.Next(0, 2);
-
-                    if(num == 1)
-                        Fields[x, y] = new Cell(true);
-                    else if(num == 0)
-                        Fields[x, y] = new Cell(false);
-                }
-            }
-        }
-
         public Board(bool[,] boardConfiguration)
         {
             Fields = new Cell[boardConfiguration.GetLength(0), boardConfiguration.GetLength(1)];
@@ -163,5 +143,7 @@ namespace ConwaysGameOfLifeWorkshop
 
             Fields[xPosition, yPosition].AmountOfNeighbours = count;
         }
+
+
     }
 }

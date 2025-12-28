@@ -14,12 +14,16 @@ namespace ConwaysGameOfLifeWorkshop
         public bool[,] Fields { get; set; }
         public int CursorX { get; set; }
         public int CursorY { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public Editor(int width, int height)
         {
             Fields = new bool[width, height];
             CursorX = 0;
             CursorY = 0;
+            Width = width;
+            Height = height;
 
             for (int y = 0; y < Fields.GetLength(1); y++)
             {
@@ -53,20 +57,26 @@ namespace ConwaysGameOfLifeWorkshop
         {
             ConsoleKeyInfo keyInfo = Console.ReadKey(true);
 
-            if(keyInfo.Key == ConsoleKey.UpArrow && CursorY > 0)
+            if(keyInfo.Key == ConsoleKey.UpArrow)
             {
                 CursorY--;
-            }else if (keyInfo.Key == ConsoleKey.DownArrow && CursorY < Fields.GetLength(1) - 1)
+                CursorY += Fields.GetLength(1);
+                CursorY %= Fields.GetLength(1);
+            }else if (keyInfo.Key == ConsoleKey.DownArrow)
             {
                 CursorY++;
+                CursorY %= Fields.GetLength(1);
             }
-            else if (keyInfo.Key == ConsoleKey.LeftArrow && CursorX > 0)
+            else if (keyInfo.Key == ConsoleKey.LeftArrow)
             {
                 CursorX--;
+                CursorX += Fields.GetLength(0);
+                CursorX %= Fields.GetLength(0);
             }
-            else if (keyInfo.Key == ConsoleKey.RightArrow && CursorX < Fields.GetLength(0) - 1)
+            else if (keyInfo.Key == ConsoleKey.RightArrow)
             {
                 CursorX++;
+                CursorX %= Fields.GetLength(0);
             }
             else if (keyInfo.Key == ConsoleKey.Spacebar)
             {
