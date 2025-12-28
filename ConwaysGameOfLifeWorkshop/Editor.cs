@@ -60,23 +60,25 @@ namespace ConwaysGameOfLifeWorkshop
             if(keyInfo.Key == ConsoleKey.UpArrow)
             {
                 CursorY--;
-                CursorY += Fields.GetLength(1);
-                CursorY %= Fields.GetLength(1);
+                if(CursorY < 0)
+                    CursorY = Fields.GetLength(1) - 1;
             }else if (keyInfo.Key == ConsoleKey.DownArrow)
             {
                 CursorY++;
-                CursorY %= Fields.GetLength(1);
+                if(CursorY >= Fields.GetLength(1))
+                    CursorY = 0;
             }
             else if (keyInfo.Key == ConsoleKey.LeftArrow)
             {
                 CursorX--;
-                CursorX += Fields.GetLength(0);
-                CursorX %= Fields.GetLength(0);
+                if(CursorX < 0)
+                    CursorX = Fields.GetLength(0) - 1;
             }
             else if (keyInfo.Key == ConsoleKey.RightArrow)
             {
                 CursorX++;
-                CursorX %= Fields.GetLength(0);
+                if(CursorX >= Fields.GetLength(0))
+                    CursorX = 0;
             }
             else if (keyInfo.Key == ConsoleKey.Spacebar)
             {
